@@ -11,17 +11,17 @@ from py_practical_1.Timo import Timo
 class HeroFactory:
 
     def hero_init(self, name):
-        # for member in HeroEnum.value:
-        #     if member[0] == name:
-        #         return member[1]
-        # return Exception(f"英雄{name}不存在！！")
+        for member in HeroEnum:
+            if name.lower() == member.value[0].lower():
+                return member.value[1]
+        return Exception(f"英雄{name}不存在！！")
 
-        if name == "timo":
-            return Timo()
-        elif name == "police":
-            return Police()
-        else:
-            return Exception(f"英雄{name}不存在！！")
+#         if name == "timo":
+#             return Timo()
+#         elif name == "police":
+#             return Police()
+#         else:
+#             return Exception(f"英雄{name}不存在！！")
 
 
 # 实例化timo类
