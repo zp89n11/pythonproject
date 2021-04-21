@@ -19,28 +19,37 @@ class MainPage(BasePage):
         """
         self.find(MobileBy.XPATH, '//*[@text="通讯录"]').click()
         for i in range(0, maxNum):
-            try:
+            ele_list = self.find_list(MobileBy.XPATH, '//*[@text="添加成员"]')
+            if len(ele_list) == 0:
+                self.move()
+            else:
                 self.find(MobileBy.XPATH, '//*[@text="添加成员"]').click()
                 break
-            except:
-                self.move()
         return Add_User(self.driver)
 
-    def user_detail(self, name: str):
+    def user_detail(self):
         """
         通讯页面进入用户个人信息页面。编辑页面
-        :param name:  需要删除的人员
+        :param :  需要删除的人员
         :return:  返回编辑页面
         """
         self.find(MobileBy.XPATH, '//*[@text="通讯录"]').click()
         # 进入详情页面
-        for i in range(0, 3):
-            els2_list = self.find_list(MobileBy.XPATH, f'//*[@text="{name}"]')
-            if len(els2_list) != 0:
-                break
-            self.move()
-        els2_list[0].click()
+        self.find(MobileBy.XPATH,
+                  "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android"
+                  ".widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout"
+                  "/android.widget.FrameLayout["
+                  "2]/android.widget.RelativeLayout/android.widget.ListView/android.widget"
+                  ".RelativeLayout[2]/android.widget.RelativeLayout").click()
         self.find(MobileBy.ID, "com.tencent.wework:id/h8g").click()
         # 点击编辑按钮
         self.find(MobileBy.ID, "com.tencent.wework:id/b49").click()
         return EditUser(self.driver)
+
+
+    def path_element(self):
+        """
+        通过yaml配置来执行步骤
+        :return:
+        """
+        self.steps("")
